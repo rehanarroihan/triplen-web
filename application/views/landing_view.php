@@ -73,7 +73,7 @@
 					</div>
 					<div class="col-lg-6">
 						<hr class="space visible-md" />
-						<img class="width-min-835" src="<?php echo base_url() ?>assets/front/media/travel/travel-1.svg" alt="" />
+						<img class="width-min-835" src="<?php echo base_url() ?>assets/front/media/destination.png" alt="" />
 					</div>
 				</div>
 			</div>
@@ -94,7 +94,7 @@
 						</p>
 					</div>
 					<div class="col-lg-6 col-md-6" data-anima="fade-right" data-time="1000">
-						<img src="<?php echo base_url() ?>assets/front/media/phone-11.png" alt="" />
+						<img src="<?php echo base_url() ?>assets/front/media/task.png" alt="" />
 					</div>
 				</div>
 			</div>
