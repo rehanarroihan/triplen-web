@@ -9,8 +9,6 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-  <!-- CSS Libraries -->
-
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/back/assets/css/style.css">
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/back/assets/css/components.css">
@@ -45,12 +43,26 @@
                   </div>
                   <div class="form-group">
                     <label for="telp">Nomor Telefon</label>
-                    <input id="telp" type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required class="form-control" name="telp" tabindex="1" autofocus>
+                    <input
+                      type="number"
+                      class="form-control"
+                      tabindex="1"
+                      placeholder="Nomor Telepon"
+                      v-model.trim="phone"
+                      v-bind:class="{ 'is-invalid': !$v.phone.minLength || !$v.phone.required || !$v.phone.maxLength }"
+                      autofocus>
+                      <div class="invalid-feedback">
+                        Mohon mengisi nomor telefon dengan valid
+                      </div>
                   </div>
 
                   <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Aku Siap!
+                    <button v-if="!isSubmitLoading" type="button" @click="submit" class="btn btn-primary btn-lg btn-block">
+                      Aku Siap Berpetualang!
+                    </button>
+                    <button v-if="isSubmitLoading" type="button" @click="submit" disabled class="btn btn-primary btn-lg btn-block">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      &nbsp;Tunggu Sebentar Ya...
                     </button>
                   </div>
                 </form>
@@ -81,22 +93,58 @@
 
 <!-- Page Specific JS File -->
 <script>
-  var app = new Vue({
-    el: '#app',
-    data: {
-      userData: {},
-    },
-    methods: {
-    },
-    mounted: function() {
-      const regDataString = localStorage.getItem('regData');
-      if (regDataString !== null) {
-        const regData = JSON.parse(regDataString);
-        this.userData = regData;
-      } else {
-        window.location.href = appBaseURL;
-      }
+//use vuelidate
+Vue.use(window.vuelidate.default);
+const { required, minLength, maxLength } = window.validators;
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    userData: {},
+    phone: '',
+    isSubmitLoading: false,
+  },
+  validations: {
+    phone: {
+      required,
+      minLength: minLength(10),
+      maxLength: maxLength(15)
     }
+  },
+  methods: {
+    submit() {
+      if (this.$v.$invalid) { return; }
+      this.isSubmitLoading = true;
+      const self = this;
+
+      const regData = {
+        id_google: this.userData.id_google,
+        email: this.userData.email,
+        name: this.userData.name,
+        image: this.userData.image,
+        notelp: this.phone
+      };
+      axios.post(apiBaseURL + 'user/register', regData)
+      .then((res) => {
+        if (res.data.success) {
+            localStorage.setItem('token', res.data.data.token);
+            window.location.href = appBaseURL + 'app';
+        }
+      }).catch((err) => {
+        self.isSubmitLoading = false;
+        alert('Something went wrong, please try again');
+      });
+    }
+  },
+  mounted: function() {
+    const regDataString = localStorage.getItem('regData');
+    if (regDataString !== null) {
+      const regData = JSON.parse(regDataString);
+      this.userData = regData;
+    } else {
+      window.location.href = appBaseURL;
+    }
+  }
 });
 </script>
 </body>
