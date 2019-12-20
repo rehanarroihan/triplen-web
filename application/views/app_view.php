@@ -131,7 +131,7 @@
             </div>
           </li>
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-            <img alt="image" :src="userData.image" class="rounded-circle mr-1">
+            <img alt="image" :src="userData.img_url" class="rounded-circle mr-1">
             <div class="d-sm-none d-lg-inline-block">Halo, {{ userData.name }}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <!-- <a href="features-profile.html" class="dropdown-item has-icon">
@@ -144,7 +144,7 @@
                 <i class="fas fa-cog"></i> Settings
               </a>
               <div class="dropdown-divider"></div> -->
-              <a href="#" class="dropdown-item has-icon text-danger">
+              <a href="#" @click="logout" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
               </a>
             </div>
@@ -240,20 +240,25 @@ var app = new Vue({
       
     },
     logout() {
-
-    }
-  },
-  mounted: function() {
-    const regDataString = localStorage.getItem('regData');
-    const token = localStorage.getItem('token');
-    if (regDataString !== null && token !== null) {
-      const regData = JSON.parse(regDataString);
-      this.authToken = token;
-      this.userData = regData;
-      //this.getBoardsData();
-    } else {
+      localStorage.removeItem('regData');
+      localStorage.removeItem('token');
       window.location.href = appBaseURL;
     }
+  },
+  created() {
+    const regDataString = localStorage.getItem('regData');
+      const token = localStorage.getItem('token');
+      if (regDataString !== null && token !== null) {
+        const regData = JSON.parse(regDataString);
+        this.authToken = token;
+        this.userData = regData;
+        //this.getBoardsData();
+      } else {
+        window.location.href = appBaseURL;
+      }
+  },
+  mounted: function() {
+    
   }
 });
 </script>

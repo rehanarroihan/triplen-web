@@ -290,15 +290,25 @@
 			name: profile.getName(),
 			image: profile.getImageUrl()
 		};
-		axios.post(apiBaseURL + 'user/auth', regData)
+        axios.post(apiBaseURL + 'user/auth', regData)
 			.then((res) => {
+                localStorage.removeItem('regData');
+                localStorage.removeItem('token');
+
+                localStorage.setItem('regData', JSON.stringify(regData));
 				if (res.data.data === null) {
-					localStorage.setItem('regData', JSON.stringify(regData));
+                    // if user not found, then redirect to register page
 					window.location.href = appBaseURL + 'register';
 				} else {
+                    // if user found, go to dashboard
+                    localStorage.setItem('regData', JSON.stringify(res.data.data.detail));
+                    localStorage.setItem('token', res.data.data.token);
 					window.location.href = appBaseURL + 'app';
 				}
-			});
+			}).catch((err) => {
+                console.log(err);
+                alert('Something went wrong, please try again.')
+            });
 	}
 </script>
 

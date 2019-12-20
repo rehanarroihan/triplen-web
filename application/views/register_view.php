@@ -121,29 +121,43 @@ var app = new Vue({
         id_google: this.userData.id_google,
         email: this.userData.email,
         name: this.userData.name,
-        image: this.userData.image,
-        notelp: this.phone
+        notelp: this.phone,
+        image: this.userData.image
       };
       axios.post(apiBaseURL + 'user/register', regData)
       .then((res) => {
         if (res.data.success) {
+            localStorage.removeItem('regData');
+            
             localStorage.setItem('token', res.data.data.token);
+            localStorage.setItem('regData', JSON.stringify(res.data.data.detail));
             window.location.href = appBaseURL + 'app';
         }
       }).catch((err) => {
         self.isSubmitLoading = false;
+        if (err.response.status === 400) {
+          console.log(JSON.stringify(err.response.data.message));
+        }
         alert('Something went wrong, please try again');
       });
     }
   },
-  mounted: function() {
+  created() {
     const regDataString = localStorage.getItem('regData');
+    const token = localStorage.getItem('token');
+    if (token !== null) {
+      window.location.href = appBaseURL;
+    }
     if (regDataString !== null) {
       const regData = JSON.parse(regDataString);
       this.userData = regData;
+      //this.getBoardsData();
     } else {
       window.location.href = appBaseURL;
     }
+  },
+  mounted: function() {
+    
   }
 });
 </script>
