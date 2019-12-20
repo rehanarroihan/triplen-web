@@ -1,0 +1,26 @@
+.empty-state {
+  display: flex;
+  flex-direction: row;
+}
+
+.empty-state img {
+  height: 320px;
+}
+
+.empty-state .message {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.empty-state .message h3 {
+  
+}
+
+.empty-state .message p {
+  
+}
+
+.empty-state .message .button-create {
+  
+}
