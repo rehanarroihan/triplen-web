@@ -5,11 +5,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google sign in needs -->
+    <meta name="google-signin-client_id" content="342542727629-fh57sa47vtueellcf7nee05f4rq00cjr.apps.googleusercontent.com">
     <title>Triplen | Rencanakan Perjalananmu</title>
     <meta name="description" content="">
     <script src="<?php echo base_url() ?>assets/front/themekit/scripts/jquery.min.js"></script>
     <script src="<?php echo base_url() ?>assets/front/themekit/scripts/main.js"></script>
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/front/themekit/css/bootstrap-grid.css">
+    <script src="https://kit.fontawesome.com/509c6b244a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/front/themekit/css/style.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/front/themekit/css/glide.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/front/themekit/css/magnific-popup.css">
@@ -19,6 +22,8 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/front/themekit/css/social.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/front/skin.css">
     <link rel="icon" href="<?php echo base_url() ?>assets/front/media/favicon.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/constant.js"></script>
 </head>
 
 <body>
@@ -75,11 +80,9 @@
                             incididunt ut labore et dolore magna aliqua.
                             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboriso.
                         </p>
-                        <a href="#" class="btn btn-sm btn-circle full-width-sm">Download now</a><span
-                            class="space-sm"></span>
-                        <a href="#" class="btn btn-sm btn-circle btn-border text-bold full-width-sm">Latest
-                            promotions</a>
-                        <hr class="space-xs" />
+                        <div class="g-signin2 btn btn-sm btn-circle full-width-sm" id="goGoogle" data-onsuccess="onSignIn">
+                            <i class="fab fa-google"></i>&emsp;Login with google
+                        </div>
                     </div>
                     <div class="col-lg-6">
                         <hr class="space visible-md" />
@@ -402,7 +405,32 @@
         <script src="<?php echo base_url() ?>assets/front/themekit/scripts/pagination.min.js"></script>
         <script src="<?php echo base_url() ?>assets/front/themekit/scripts/social.min.js"></script>
         <script src="<?php echo base_url() ?>assets/front/media/custom.js"></script>
+
+        <!-- Custom -->
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
     </footer>
 </body>
+<script>
+$('#googleLogin').click(function() {
+    $('#goGoogle').click();
+});
 
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  const regData = {
+    id_google: profile.getId(),
+    email: profile.getEmail(),
+    name: profile.getName(),
+    image: profile.getImageUrl()
+  };
+  axios.post(apiBaseURL + 'user/auth', regData)
+  .then((res) => {
+    if (res.data.data === null) {
+        window.location = appBaseURL + 'register';
+    } else {
+        window.location = appBaseURL + 'app';
+    }
+  });
+}
+</script>
 </html>

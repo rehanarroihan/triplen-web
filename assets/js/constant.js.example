@@ -1,0 +1,2 @@
+const apiBaseURL = 'https://multazamgsd.com/api-triplen/v1/';
+const appBaseURL = 'http://localhost/triplen/';
