@@ -426,9 +426,10 @@ function onSignIn(googleUser) {
   axios.post(apiBaseURL + 'user/auth', regData)
   .then((res) => {
     if (res.data.data === null) {
-        window.location = appBaseURL + 'register';
+        localStorage.setItem('regData', JSON.stringify(regData));
+        window.location.href = appBaseURL + 'register';
     } else {
-        window.location = appBaseURL + 'app';
+        window.location.href = appBaseURL + 'app';
     }
   });
 }
