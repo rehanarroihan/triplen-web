@@ -24,3 +24,19 @@
 .empty-state .message .button-create {
   
 }
+
+@media (min-width: 300px) and (max-width: 990px) {
+  .empty-state {
+    flex-direction: column;
+  }
+  
+  .empty-state img {
+    height: 286px;
+    margin-bottom: 12px;
+  }
+  
+  .empty-state .message {
+    align-items: center;
+    flex-direction: column;
+  }
+}
