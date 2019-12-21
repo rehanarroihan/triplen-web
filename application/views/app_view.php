@@ -20,6 +20,10 @@
   <script src="https://unpkg.com/vuelidate/dist/vuelidate.min.js"></script>
   <script src="<?php echo base_url() ?>assets/js/constant.js"></script>
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/style.css">
+  <!-- CDNJS :: Sortable (https://cdnjs.com/) -->
+  <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+  <!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
 </head>
 
 <body class="layout-3">
@@ -163,6 +167,8 @@
 Vue.use(window.vuelidate.default);
 const { required } = window.validators;
 
+const draggable = vuedraggable;
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -201,6 +207,19 @@ var app = new Vue({
       }).then((res) => {
         if (res.data.success) {
           self.boardList = [...res.data.data];
+          res.data.data.map((item, index) => {
+            const self = this;
+            axios({
+              url: apiBaseURL + 'boards/' + item.id,
+              method: 'get',
+              data: self.newBoardData,
+              headers: { Authorization: `Bearer ${self.authToken}` }
+            }).then((res) => {
+              if (res.data.success) {
+                self.boardList[index].plans = [...res.data.data];
+              }
+            });
+          });
         }
       }).catch((err) => {
         if (err.response.status === 400) {
@@ -277,12 +296,19 @@ var app = new Vue({
         headers: { Authorization: `Bearer ${self.authToken}` }
       }).then((res) => {
         if (res.data.success) {
+          self.newPlanData = {
+            id_board: null,
+            task_name: '',
+            task_date: '',
+            task_location: ''
+          };
           self.getBoardsData();
           $("[data-dismiss=modal]").trigger({ type: "click" });
         }
       }).catch((err) => {
+        console.log(err);
         if (err.response.status === 400) {
-          window.location.href = appBaseURL;
+          //window.location.href = appBaseURL;
         }
       });
     },
