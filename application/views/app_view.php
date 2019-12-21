@@ -170,12 +170,12 @@
           </div> -->
 
           <div class="section-body">
-            <div class="empty-state">
+            <div v-if="boardList.length !== 0" class="empty-state">
               <img src="<?php echo base_url() ?>assets/back/assets/img/clip-travel.png" alt="">
               <div class="message">
                 <h3>Kamu belum punya rencana apapun!</h3>
                 <p>ayo mulai ciptakan rencana menakjubkanmu!</p>
-                <button @click="" class="btn btn-primary btn-lg btn-icon icon-left button-create">
+                <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-lg btn-icon icon-left button-create">
                   <i class="fa fa-plus"></i>&emsp;Tambah Rencana Baru
                 </button>
               </div>
@@ -191,6 +191,27 @@
           <!-- 2.3.0 -->
         </div>
       </footer>
+    </div>
+  </div>
+
+  <!-- Modal gan -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tambah Plan Liburan Baru</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+          <button type="button" class="btn btn-primary">Simpan Perubahan</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -220,6 +241,7 @@ var app = new Vue({
   data: {
     authToken: '',
     userData: {},
+    boardList: [],
   },
   validations: {
   },
@@ -228,12 +250,17 @@ var app = new Vue({
       const self = this;
       const token = self.authToken;
       axios({
-        url: 'https://dog.ceo/api/breeds/list/all',
-        method: 'get'
+        url: apiBaseURL + 'boards',
+        method: 'get',
+        headers: { Authorization: `Bearer ${token}` }
       }).then((res) => {
-
+        if (res.data.success) {
+          self.boardList = [...res.data.data];
+        }
       }).catch((err) => {
-
+        if (err.response.status === 400) {
+          window.location.href = appBaseURL;
+        }
       });
     },
     submit() {
@@ -258,7 +285,7 @@ var app = new Vue({
       }
   },
   mounted: function() {
-    
+    this.getBoardsData();
   }
 });
 </script>
