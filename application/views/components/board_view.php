@@ -7,13 +7,16 @@
 </button>
 
 <div class="row">
-  <div class="col-12 col-md-6 col-lg-4" v-for="(item, index) in boardList" key="item.id">
+  <div class="col-12 col-md-6 col-lg-4" v-for="(item, index) in boardList" :key="item.id">
     <div class="card card-primary">
       <div class="card-header">
         <h4>{{ item.board }}</h4>
         <div class="card-header-action">
           <a href="#" class="btn btn-primary" :data-collapse="'#'+item.id">
             <i class="fas fa-minus"></i>
+          </a>
+          <a href="#" @click="deleteBoard(item.id)" class="btn btn-danger">
+            <i class="fas fa-trash"></i>
           </a>
         </div>
       </div>
@@ -22,7 +25,7 @@
           <p>Write something here</p>
         </div>
         <div class="card-footer">
-          <button class="btn btn-outline-primary">
+          <button @click="openNewPlanModal(item.id)" class="btn btn-block btn-outline-primary">
             <i class="fa fa-plus"></i> Tambah
           </button>
         </div>

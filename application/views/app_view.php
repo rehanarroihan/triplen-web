@@ -118,7 +118,7 @@
               <div class="message">
                 <h3>Kamu belum punya rencana liburan apapun!</h3>
                 <p>ayo mulai ciptakan rencana menakjubkanmu!</p>
-                <button data-toggle="modal" data-target="#newPlanModal" class="btn btn-primary btn-lg btn-icon icon-left button-create">
+                <button @click="openNewPlanModal(null)" class="btn btn-primary btn-lg btn-icon icon-left button-create">
                   <i class="fa fa-plus"></i>&emsp;Tambah Rencana Baru
                 </button>
               </div>
@@ -172,7 +172,7 @@ var app = new Vue({
     locationResult: [],
     isLocationLoading: false,
     newPlanData: {
-      id_board: 1,
+      id_board: null,
       task_name: '',
       task_date: '',
       task_location: ''
@@ -208,6 +208,7 @@ var app = new Vue({
         }
       });
     },
+
     searchPlace(e) {
       const self = this;
       axios.get(`https://multazamgsd.com/maps/?q=${encodeURI(e.target.value)}`)
@@ -216,7 +217,58 @@ var app = new Vue({
         self.isLocationLoading = false;
       }).catch(err => console.log(err));
     },
+
+    openNewPlanModal(board_id) {
+      this.newPlanData.id_board = board_id;
+      $("#newPlanModal").modal();
+    },
+
+    createInitializeBoard() {
+      const self = this;
+      return new Promise((resolve, reject) => {
+        const initialBoardForNewUser = [
+          {
+            board_name: 'Rencana Perjalanan',
+          },
+          {
+            board_name: 'Telah Dikunjungi',
+          },
+        ];
+        let boardIdWillReturn;
+        for (let i=0;i < initialBoardForNewUser.length; i++) {
+          axios({
+            url: apiBaseURL + 'boards',
+            method: 'post',
+            data: initialBoardForNewUser[i],
+            headers: { Authorization: `Bearer ${self.authToken}` }
+          }).then((res) => {
+            if (res.data.success) {
+              if (i === 0) {
+                boardIdWillReturn = res.data.data.id;
+              }
+              if (i === 1) {
+                resolve(boardIdWillReturn);
+              }
+            }
+          })
+        }
+      });
+    },
+
     newPlanSubmit() {
+      const self = this;
+      if (this.newPlanData.id_board === null) {
+        // orang ini pertama kali bikin plan, jadi gapunya board, bikinin lahhh
+        self.createInitializeBoard().then((output) => {
+          self.newPlanData.id_board = output;
+          self.planSubmit();
+        });
+      } else {
+        self.planSubmit();
+      }
+    },
+
+    planSubmit() {
       const self = this;
       axios({
         url: apiBaseURL + 'task',
@@ -225,15 +277,16 @@ var app = new Vue({
         headers: { Authorization: `Bearer ${self.authToken}` }
       }).then((res) => {
         if (res.data.success) {
+          self.getBoardsData();
           $("[data-dismiss=modal]").trigger({ type: "click" });
         }
       }).catch((err) => {
-        console.log(err);
         if (err.response.status === 400) {
           window.location.href = appBaseURL;
         }
       });
     },
+
     newBoardSubmit() {
       const self = this;
       axios({
@@ -254,6 +307,26 @@ var app = new Vue({
         }
       });
     },
+
+    deleteBoard(id) {
+      const self = this;
+      axios({
+        url: apiBaseURL + 'boards',
+        method: 'delete',
+        data: { id_board: id },
+        headers: { Authorization: `Bearer ${self.authToken}` }
+      }).then((res) => {
+        if (res.data.success) {
+          self.getBoardsData();
+        }
+      }).catch((err) => {
+        console.log(err);
+        if (err.response.status === 400) {
+          //window.location.href = appBaseURL;
+        }
+      });
+    },
+
     logout() {
       localStorage.removeItem('regData');
       localStorage.removeItem('token');

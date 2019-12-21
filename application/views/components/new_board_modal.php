@@ -14,15 +14,17 @@
             type="text"
             class="form-control"
             v-model="newBoardData.board_name"
+            v-on:keyup.enter="newBoardSubmit"
             v-bind:class="{ 'is-invalid': !$v.newBoardData.board_name.required }"
-            placeholder="Jalan-jalan ke malioboro">
+            placeholder="Jalan-jalan ke malioboro"
+            autofocus>
           <div class="invalid-feedback">
             Nama board harus di isi
           </div>
         </div>
       </div>
       <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+        <button type="button" class="btn btn-secondary"  data-dismiss="modal">Batalkan</button>
         <button type="button" @click="newBoardSubmit" class="btn btn-primary">Simpan</button>
       </div>
     </div>
