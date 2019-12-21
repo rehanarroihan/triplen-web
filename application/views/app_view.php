@@ -36,7 +36,7 @@
             <i class="fas fa-ellipsis-v"></i>
           </a>
           <ul class="navbar-nav">
-            <!-- <li class="nav-item active"><a href="#" class="nav-link">Application</a></li> -->
+            <li class="nav-item active"><a href="#" class="nav-link">My Triplen</a></li>
           </ul>
         </div>
         <form class="form-inline ml-auto">
@@ -47,63 +47,6 @@
             <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
             <button class="btn" type="submit"><i class="fas fa-search"></i></button>
             <div class="search-backdrop"></div>
-            <div class="search-result">
-              <div class="search-header">
-                Histories
-              </div>
-              <div class="search-item">
-                <a href="#">How to hack NASA using CSS</a>
-                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-              </div>
-              <div class="search-item">
-                <a href="#">Kodinger.com</a>
-                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-              </div>
-              <div class="search-item">
-                <a href="#">#Stisla</a>
-                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-              </div>
-              <div class="search-header">
-                Result
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <img class="mr-3 rounded" width="30" src="<?php echo base_url() ?>assets/back/assets/img/products/product-3-50.png" alt="product">
-                  oPhone S9 Limited Edition
-                </a>
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <img class="mr-3 rounded" width="30" src="<?php echo base_url() ?>assets/back/assets/img/products/product-2-50.png" alt="product">
-                  Drone X2 New Gen-7
-                </a>
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <img class="mr-3 rounded" width="30" src="<?php echo base_url() ?>assets/back/assets/img/products/product-1-50.png" alt="product">
-                  Headphone Blitz
-                </a>
-              </div>
-              <div class="search-header">
-                Projects
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <div class="search-icon bg-danger text-white mr-3">
-                    <i class="fas fa-code"></i>
-                  </div>
-                  Stisla Admin Template
-                </a>
-              </div>
-              <div class="search-item">
-                <a href="#">
-                  <div class="search-icon bg-primary text-white mr-3">
-                    <i class="fas fa-laptop"></i>
-                  </div>
-                  Create a new Homepage Design
-                </a>
-              </div>
-            </div>
           </div>
         </form>
         <ul class="navbar-nav navbar-right">
@@ -170,15 +113,18 @@
           </div> -->
 
           <div class="section-body">
-            <div v-if="boardList.length !== 0" class="empty-state">
+            <div v-if="boardList.length === 0" class="empty-state">
               <img src="<?php echo base_url() ?>assets/back/assets/img/clip-travel.png" alt="">
               <div class="message">
-                <h3>Kamu belum punya rencana apapun!</h3>
+                <h3>Kamu belum punya rencana liburan apapun!</h3>
                 <p>ayo mulai ciptakan rencana menakjubkanmu!</p>
-                <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-lg btn-icon icon-left button-create">
+                <button data-toggle="modal" data-target="#newPlanModal" class="btn btn-primary btn-lg btn-icon icon-left button-create">
                   <i class="fa fa-plus"></i>&emsp;Tambah Rencana Baru
                 </button>
               </div>
+            </div>
+            <div v-if="boardList.length !== 0" class="board-list">
+              <?php $this->load->view($board_view); ?>
             </div>
           </div>
         </section>
@@ -192,31 +138,12 @@
         </div>
       </footer>
     </div>
-  </div>
-
-  <!-- Modal gan -->
-  <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Tambah Plan Liburan Baru</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Modal body text goes here.</p>
-        </div>
-        <div class="modal-footer bg-whitesmoke br">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-          <button type="button" class="btn btn-primary">Simpan Perubahan</button>
-        </div>
-      </div>
-    </div>
-  </div>
+    <?php $this->load->view($new_plan_modal_view); ?>
+    <?php $this->load->view($new_board_modal_view); ?>
+  </div> <!-- app -->
 
   <!-- General JS Scripts -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="<?php echo base_url() ?>assets/js/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
@@ -234,7 +161,7 @@
   <script>
 //use vuelidate
 Vue.use(window.vuelidate.default);
-const { required, minLength, maxLength } = window.validators;
+const { required } = window.validators;
 
 var app = new Vue({
   el: '#app',
@@ -242,8 +169,26 @@ var app = new Vue({
     authToken: '',
     userData: {},
     boardList: [],
+    locationResult: [],
+    isLocationLoading: false,
+    newPlanData: {
+      id_board: 1,
+      task_name: '',
+      task_date: '',
+      task_location: ''
+    },
+    newBoardData: {
+      board_name: '',
+    },
+    isSubmitPlanLoading: false,
   },
   validations: {
+    newPlanData: {
+      task_name: required
+    },
+    newBoardData: {
+      board_name: required,
+    },
   },
   methods: {
     getBoardsData() {
@@ -263,8 +208,51 @@ var app = new Vue({
         }
       });
     },
-    submit() {
-      
+    searchPlace(e) {
+      const self = this;
+      axios.get(`https://multazamgsd.com/maps/?q=${encodeURI(e.target.value)}`)
+      .then((result) => {
+        self.locationResult = result.data.candidates;
+        self.isLocationLoading = false;
+      }).catch(err => console.log(err));
+    },
+    newPlanSubmit() {
+      const self = this;
+      axios({
+        url: apiBaseURL + 'task',
+        method: 'post',
+        data: self.newPlanData,
+        headers: { Authorization: `Bearer ${self.authToken}` }
+      }).then((res) => {
+        if (res.data.success) {
+          $("[data-dismiss=modal]").trigger({ type: "click" });
+        }
+      }).catch((err) => {
+        console.log(err);
+        if (err.response.status === 400) {
+          window.location.href = appBaseURL;
+        }
+      });
+    },
+    newBoardSubmit() {
+      const self = this;
+      axios({
+        url: apiBaseURL + 'boards',
+        method: 'post',
+        data: self.newBoardData,
+        headers: { Authorization: `Bearer ${self.authToken}` }
+      }).then((res) => {
+        if (res.data.success) {
+          $("[data-dismiss=modal]").trigger({ type: "click" });
+          self.newBoardData.board_name = '';
+          self.getBoardsData();
+        }
+      }).catch((err) => {
+        console.log(err);
+        if (err.response.status === 400) {
+          //window.location.href = appBaseURL;
+        }
+      });
     },
     logout() {
       localStorage.removeItem('regData');
@@ -279,7 +267,6 @@ var app = new Vue({
         const regData = JSON.parse(regDataString);
         this.authToken = token;
         this.userData = regData;
-        //this.getBoardsData();
       } else {
         window.location.href = appBaseURL;
       }

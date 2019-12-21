@@ -14,7 +14,7 @@
 }
 
 .empty-state .message h3 {
-  
+  text-align: left;
 }
 
 .empty-state .message p {
@@ -38,5 +38,9 @@
   .empty-state .message {
     align-items: center;
     flex-direction: column;
+  }
+
+  .empty-state .message h3 {
+    text-align: center;
   }
 }
