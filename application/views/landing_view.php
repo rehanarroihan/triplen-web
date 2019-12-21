@@ -60,7 +60,7 @@
 			<div class="container">
 				<hr class="space" />
 				<div class="row">
-					<div class="col-lg-6">
+					<div class="col-lg-6" data-anima="fade-left" data-time="1000">
 						<hr class="space-lg hidden-md" />
 						<h1>
 							Temukan pengalaman liburan dalam ponselmu
@@ -71,9 +71,9 @@
 						</p>
 						<div class="btn" id="my-signin2"></div>
 					</div>
-					<div class="col-lg-6">
+					<div class="col-lg-6" data-anima="fade-right" data-time="1000">
 						<hr class="space visible-md" />
-						<img class="width-min-835" src="<?php echo base_url() ?>assets/front/media/destination.png" alt="" />
+						<img class="width-min-835" src="<?php echo base_url() ?>assets/front/media/travelling.svg" alt="" />
 					</div>
 				</div>
 			</div>
@@ -82,7 +82,7 @@
 		<section id="overview" class="section-base">
 			<div class="container">
 				<hr class="space-lg" />
-				<h2 class="align-center width-650">"Triplen app membuat pengalaman liburanmu menjadi lebih seru dan menakjubkan."</h2>
+				<h2 class="align-center width-650" data-anima="fade-bottom" data-time="1000">"Triplen app membuat pengalaman liburanmu menjadi lebih seru dan menakjubkan."</h2>
 				<hr class="space-lg" />
 				<hr class="space" />
 				<div class="row align-items-center">
@@ -94,14 +94,14 @@
 						</p>
 					</div>
 					<div class="col-lg-6 col-md-6" data-anima="fade-right" data-time="1000">
-						<img src="<?php echo base_url() ?>assets/front/media/task.png" alt="" />
+						<img src="<?php echo base_url() ?>assets/front/media/plan.svg" srcset="<?php echo base_url() ?>assets/front/media/plan.svg" alt="" />
 					</div>
 				</div>
 			</div>
 		</section>
 
 		<section id="feature" class="section-base section-color">
-			<div class="container">
+			<div class="container" data-anima="fade-top" data-time="1000">
 				<h2 class="align-center align-left-sm">Pengalaman pengguna adalah segalanya bagi kami.</h2>
 				<p class="width-650 align-center align-left-sm">
 					Memberikan pengalaman pengguna yang dapat menunjang liburan kalian menjadi lebih efisien dan terstruktur.
@@ -260,7 +260,6 @@
 		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/progress.js"></script>
 		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/pagination.min.js"></script>
 		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/social.min.js"></script>
-		<script src="<?php echo base_url() ?>assets/front/media/custom.js"></script>
 
 		<!-- Custom -->
 		<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
@@ -290,25 +289,25 @@
 			name: profile.getName(),
 			image: profile.getImageUrl()
 		};
-        axios.post(apiBaseURL + 'user/auth', regData)
+		axios.post(apiBaseURL + 'user/auth', regData)
 			.then((res) => {
-                localStorage.removeItem('regData');
-                localStorage.removeItem('token');
+				localStorage.removeItem('regData');
+				localStorage.removeItem('token');
 
-                localStorage.setItem('regData', JSON.stringify(regData));
+				localStorage.setItem('regData', JSON.stringify(regData));
 				if (res.data.data === null) {
-                    // if user not found, then redirect to register page
+					// if user not found, then redirect to register page
 					window.location.href = appBaseURL + 'register';
 				} else {
-                    // if user found, go to dashboard
-                    localStorage.setItem('regData', JSON.stringify(res.data.data.detail));
-                    localStorage.setItem('token', res.data.data.token);
+					// if user found, go to dashboard
+					localStorage.setItem('regData', JSON.stringify(res.data.data.detail));
+					localStorage.setItem('token', res.data.data.token);
 					window.location.href = appBaseURL + 'app';
 				}
 			}).catch((err) => {
-                console.log(err);
-                alert('Something went wrong, please try again.')
-            });
+				console.log(err);
+				alert('Something went wrong, please try again.')
+			});
 	}
 </script>
 
