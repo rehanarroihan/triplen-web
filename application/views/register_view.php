@@ -18,7 +18,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
   <script src="https://unpkg.com/vuelidate/dist/validators.min.js"></script>
   <script src="https://unpkg.com/vuelidate/dist/vuelidate.min.js"></script>
-  <script src="<?php echo base_url() ?>assets/js/constant.js"></script>
+  <script src="<?php echo base_url() ?>assets/js/constants.js"></script>
 </head>
 
 <body>

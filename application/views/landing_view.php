@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="<?php echo base_url() ?>assets/front/skin.css">
 	<link rel="icon" href="<?php echo base_url() ?>assets/front/media/favicon.png">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-	<script src="<?php echo base_url() ?>assets/js/constant.js"></script>
+	<script src="<?php echo base_url() ?>assets/js/constants.js"></script>
 </head>
 
 <body>
