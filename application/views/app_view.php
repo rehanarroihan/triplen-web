@@ -186,6 +186,12 @@ var app = new Vue({
     newBoardData: {
       board_name: '',
     },
+    iniData: [
+      { title: 'Halo' },
+      { title: 'Iya' },
+      { title: 'Shalom' },
+      { title: 'Sip' },
+    ],
     isSubmitPlanLoading: false,
   },
   validations: {
@@ -197,7 +203,7 @@ var app = new Vue({
     },
   },
   methods: {
-    getBoardsData() {
+    getBoardsDataAndPlans() {
       const self = this;
       const token = self.authToken;
       axios({
@@ -220,6 +226,25 @@ var app = new Vue({
               }
             });
           });
+        }
+      }).catch((err) => {
+        if (err.response.status === 400) {
+          window.location.href = appBaseURL;
+        }
+      });
+    },
+
+    getBoardsData() {
+      const self = this;
+      const token = self.authToken;
+      axios({
+        url: apiBaseURL + 'boards',
+        method: 'get',
+        headers: { Authorization: `Bearer ${token}` }
+      }).then((res) => {
+        if (res.data.success) {
+          self.boardList = [...res.data.data];
+          self.getBoardsDataAndPlans();
         }
       }).catch((err) => {
         if (err.response.status === 400) {
