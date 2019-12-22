@@ -77,6 +77,12 @@
 	border-color: #0071a5 !important;
 }
 
+.btn-task:active {
+	color: #ffffff;
+	background-color: #0071a5 !important;
+	border-color: #0071a5 !important;
+}
+
 .card.card-task {
 	border-top: 2px solid #0099e0;
 }

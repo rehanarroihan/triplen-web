@@ -125,7 +125,7 @@
 							<div class="message">
 								<h3>Kamu belum punya rencana liburan apapun!</h3>
 								<p>ayo mulai ciptakan rencana menakjubkanmu!</p>
-								<button @click="openNewPlanModal(null)" class="btn btn-primary btn-lg btn-icon icon-left button-create">
+								<button @click="openNewPlanModal(null)" class="btn btn-task btn-lg btn-icon icon-left button-create">
 									<i class="fa fa-plus"></i>&emsp;Tambah Rencana Baru
 								</button>
 							</div>
@@ -226,6 +226,7 @@
 						}
 					}).then((res) => {
 						if (res.data.success) {
+							console.log(res.data.data);
 							self.boardList = [...res.data.data];
 							res.data.data.map((item, index) => {
 								const self = this;
@@ -261,6 +262,7 @@
 						}
 					}).then((res) => {
 						if (res.data.success) {
+							console.log(res.data);
 							self.boardList = [...res.data.data];
 							self.getBoardsDataAndPlans();
 						}
@@ -289,12 +291,8 @@
 					const self = this;
 					return new Promise((resolve, reject) => {
 						const initialBoardForNewUser = [{
-								board_name: 'Rencana Perjalanan',
-							},
-							{
-								board_name: 'Telah Dikunjungi',
-							},
-						];
+							board_name: 'My First Boards',
+						}, ];
 						let boardIdWillReturn;
 						for (let i = 0; i < initialBoardForNewUser.length; i++) {
 							axios({
@@ -410,8 +408,7 @@
 				},
 
 				logout() {
-					localStorage.removeItem('regData');
-					localStorage.removeItem('token');
+					localStorage.clear();
 					window.location.href = appBaseURL;
 				}
 			},
