@@ -5,7 +5,8 @@
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
 	<title>MyTriplen | Triplen</title>
-	<link rel="icon" href="<?php echo base_url() ?>assets/front/media/favicon.png">
+  <link rel="icon" href="<?php echo base_url() ?>assets/front/media/favicon.png">
+  <meta name="dicoding:email" content="grinaldifoc@gmail.com">
 
 	<!-- General CSS Files -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
