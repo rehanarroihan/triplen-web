@@ -8,7 +8,9 @@
 	<!-- Google sign in needs -->
 	<meta name="google-signin-client_id" content="342542727629-fh57sa47vtueellcf7nee05f4rq00cjr.apps.googleusercontent.com">
 	<title>Triplen | Rencanakan Perjalananmu</title>
-	<meta name="description" content="">
+	<meta name="dicoding:email" content="grinaldifoc@gmail.com">
+
+
 	<script src="<?php echo base_url() ?>assets/front/themekit/scripts/jquery.min.js"></script>
 	<script src="<?php echo base_url() ?>assets/front/themekit/scripts/main.js"></script>
 	<link rel="stylesheet" href="<?php echo base_url() ?>assets/front/themekit/css/bootstrap-grid.css">
@@ -254,12 +256,7 @@
 		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/parallax.min.js"></script>
 		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/glide.min.js"></script>
 		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/magnific-popup.min.js"></script>
-		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/tab-accordion.js"></script>
-		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/imagesloaded.min.js"></script>
-		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/contact-form/contact-form.js"></script>
 		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/progress.js"></script>
-		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/pagination.min.js"></script>
-		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/social.min.js"></script>
 
 		<!-- Custom -->
 		<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
