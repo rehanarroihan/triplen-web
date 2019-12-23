@@ -50,6 +50,7 @@
           </div>
         </footer>
       </div>
+      <?php $this->load->view('components/new_plan_modal'); ?>
     </div>
     <!-- app -->
     <!-- General JS Scripts -->
@@ -75,10 +76,23 @@
       	el: '#app',
       	data: {
           boardId: <?php echo $this->uri->segment(3) ?>,
-          boardDetail: {},
+          boardPlanListUndone: [],
+          boardPlanListDone: [],
+          locationResult: [],
+      		isLocationLoading: false,
+      		newPlanData: {
+      			id_board: <?php echo $this->uri->segment(3) ?>,
+            task_name: '',
+            task_date: '',
+            task_location: '',
+            task_long: '',
+            task_lat: ''
+      		},
         },
       	validations: {
-      		
+      		newPlanData: {
+      			task_name: required
+      		},
       	},
       	methods: {
           getBoardDetail() {
@@ -92,7 +106,16 @@
               }
             }).then((res) => {
               if (res.data.success) {
-                self.boardDetail = res.data.data;
+                res.data.data.map((item, index) => {
+                  if (item.status === 0) {
+                    // goes to done
+                    self.boardPlanListDone.push(item);
+                  }
+                  if (item.status === 1) {
+                    // goes to undone
+                    self.boardPlanListUndone.push(item);
+                  }
+                });
               }
             });
           },
@@ -100,7 +123,29 @@
           logout() {
       			localStorage.clear();
       			window.location.href = appBaseURL;
-      		}
+      		},
+
+          searchPlace(e) {
+      			const self = this;
+      			axios.get(`https://multazamgsd.com/maps/?q=${encodeURI(e.target.value)}`)
+      				.then((result) => {
+      					self.locationResult = result.data.candidates;
+      					self.isLocationLoading = false;
+      				}).catch(err => console.log(err));
+      		},
+
+          newPlanSubmit() {
+      			const self = this;
+      			if (this.newPlanData.id_board === null) {
+      				// orang ini pertama kali bikin plan, jadi gapunya board, bikinin lahhh
+      				self.createInitializeBoard().then((output) => {
+      					self.newPlanData.id_board = output;
+      					self.planSubmit();
+      				});
+      			} else {
+      				self.planSubmit();
+      			}
+      		},
         },
       	created() {
       		const regDataString = localStorage.getItem('regData');

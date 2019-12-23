@@ -93,36 +93,12 @@
       		authToken: '',
       		userData: {},
       		boardList: [],
-      		locationResult: [],
-      		isLocationLoading: false,
-      		newPlanData: {
-      			id_board: null,
-      			task_name: '',
-      			task_date: '',
-      			task_location: ''
-      		},
       		newBoardData: {
       			board_name: '',
       		},
-      		iniData: [{
-      				title: 'Halo'
-      			},
-      			{
-      				title: 'Iya'
-      			},
-      			{
-      				title: 'Shalom'
-      			},
-      			{
-      				title: 'Sip'
-      			},
-      		],
       		isSubmitPlanLoading: false,
       	},
       	validations: {
-      		newPlanData: {
-      			task_name: required
-      		},
       		newBoardData: {
       			board_name: required,
       		},
@@ -184,15 +160,6 @@
       			});
       		},
       
-      		searchPlace(e) {
-      			const self = this;
-      			axios.get(`https://multazamgsd.com/maps/?q=${encodeURI(e.target.value)}`)
-      				.then((result) => {
-      					self.locationResult = result.data.candidates;
-      					self.isLocationLoading = false;
-      				}).catch(err => console.log(err));
-      		},
-      
       		openNewPlanModal(board_id) {
       			this.newPlanData.id_board = board_id;
       			$("#newPlanModal").modal();
@@ -242,19 +209,6 @@
             }
             return textString;
           },
-      
-      		newPlanSubmit() {
-      			const self = this;
-      			if (this.newPlanData.id_board === null) {
-      				// orang ini pertama kali bikin plan, jadi gapunya board, bikinin lahhh
-      				self.createInitializeBoard().then((output) => {
-      					self.newPlanData.id_board = output;
-      					self.planSubmit();
-      				});
-      			} else {
-      				self.planSubmit();
-      			}
-      		},
       
       		planSubmit() {
       			const self = this;
