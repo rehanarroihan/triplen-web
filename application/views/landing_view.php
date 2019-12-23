@@ -5,11 +5,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Google sign in needs -->
-	<meta name="google-signin-client_id" content="342542727629-fh57sa47vtueellcf7nee05f4rq00cjr.apps.googleusercontent.com">
 	<title>Triplen | Rencanakan Perjalananmu</title>
 	<meta name="dicoding:email" content="grinaldifoc@gmail.com">
-
 
 	<script src="<?php echo base_url() ?>assets/front/themekit/scripts/jquery.min.js"></script>
 	<script src="<?php echo base_url() ?>assets/front/themekit/scripts/main.js"></script>
@@ -71,7 +68,10 @@
 							Butuh aplikasi untuk membuat <b>timeline liburanmu</b> jadi lebih baik? Tapi malas install aplikasi yang meberatkan ponsel?
 							<b>Triplen</b> memberikanmu solusi tanpa harus memberatkan ponsel, hanya dengan sekali install melalui tombol yang disediakan!
 						</p>
-						<div class="btn" id="my-signin2"></div>
+						<a href="<?php echo base_url() ?>login" class="btn btn-sm btn-circle full-width-sm">
+							<i class="fab fa-google"></i>
+							&nbsp;Sign In With Google
+						</a>
 					</div>
 					<div class="col-lg-6" data-anima="fade-right" data-time="1000">
 						<hr class="space visible-md" />
@@ -192,7 +192,10 @@
 					Dapatkan Triplen App secara gratis dengan melakukan registrasi, kemudian install melalui browsermu.
 				</p>
 				<hr class="space-sm">
-				<div class="btn g-signin2" data-longtitle="true" data-height="50" data-width="250" data-theme="dark" data-onsuccess="onSuccess">
+				<a href="<?php echo base_url() ?>login" class="btn btn-sm btn-circle full-width-sm">
+					<i class="fab fa-google"></i>
+					&nbsp;Sign In With Google
+				</a>
 				</div>
 		</section>
 
@@ -257,55 +260,7 @@
 		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/glide.min.js"></script>
 		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/magnific-popup.min.js"></script>
 		<script src="<?php echo base_url() ?>assets/front/themekit/scripts/progress.js"></script>
-
-		<!-- Custom -->
-		<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 	</footer>
 </body>
-<script>
-	$('#googleLogin').click(function() {
-		$('#goGoogle').click();
-	});
-
-	function renderButton() {
-		gapi.signin2.render('my-signin2', {
-			'scope': 'profile email',
-			'width': 240,
-			'height': 50,
-			'longtitle': true,
-			'theme': 'dark',
-			'onsuccess': onSuccess,
-		});
-	}
-
-	function onSuccess(googleUser) {
-		var profile = googleUser.getBasicProfile();
-		const regData = {
-			id_google: profile.getId(),
-			email: profile.getEmail(),
-			name: profile.getName(),
-			image: profile.getImageUrl()
-		};
-		axios.post(apiBaseURL + 'user/auth', regData)
-			.then((res) => {
-				localStorage.removeItem('regData');
-				localStorage.removeItem('token');
-
-				localStorage.setItem('regData', JSON.stringify(regData));
-				if (res.data.data === null) {
-					// if user not found, then redirect to register page
-					window.location.href = appBaseURL + 'register';
-				} else {
-					// if user found, go to dashboard
-					localStorage.setItem('regData', JSON.stringify(res.data.data.detail));
-					localStorage.setItem('token', res.data.data.token);
-					window.location.href = appBaseURL + 'app';
-				}
-			}).catch((err) => {
-				console.log(err);
-				alert('Something went wrong, please try again.')
-			});
-	}
-</script>
 
 </html>

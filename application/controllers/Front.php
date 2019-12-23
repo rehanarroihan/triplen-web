@@ -7,6 +7,10 @@ class Front extends CI_Controller {
 		$this->load->view('landing_view');
 	}
 
+	public function login() {
+		$this->load->view('login_view');
+	}
+
 	public function register() {
 		$this->load->view('register_view');
 	}
