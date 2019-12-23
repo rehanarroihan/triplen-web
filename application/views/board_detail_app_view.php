@@ -146,6 +146,10 @@
       				self.planSubmit();
       			}
       		},
+
+          dragLog(evt) {
+            console.log(evt);
+          },
         },
       	created() {
       		const regDataString = localStorage.getItem('regData');

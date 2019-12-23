@@ -15,8 +15,7 @@
 			</div>
 			<div class="collapse show" id="card-undone">
 				<div class="card-body">
-					<p v-if="boardPlanListUndone.length === 0" class="text-center">Daftar rencana yang belum selesai akan muncul disini</p>
-					<draggable :list="boardPlanListUndone" group="task" draggable=".undone" class="card-body">
+					<draggable :list="boardPlanListUndone" group="task" @change="dragLog" draggable=".undone" class="card-task">
 						<div v-for="(undoneItem, undoneIndex) in boardPlanListUndone" :key="undoneIndex" class="card card-warning undone" style="background: #f4f6f9">
 							<div class="card-body">
 								<h6>{{ undoneItem.task }}</h6>
@@ -24,8 +23,7 @@
 							</div>
 						</div>
 					</draggable>
-				</div>
-				<div class="card-footer">
+					<p v-if="boardPlanListUndone.length === 0" class="text-center">Daftar rencana yang belum selesai akan muncul disini</p>
 					<button data-toggle="modal" data-target="#newPlanModal" class="btn btn-block btn-outline-primary">
 						Tambah Rencana
 					</button>
@@ -43,17 +41,15 @@
 			</div>
 			<div class="collapse show" id="card-done">
 				<div class="card-body">
-					<p v-if="boardPlanListDone.length === 0" class="text-center">Daftar rencana yang telah selesai akan muncul disini</p>
-					<draggable :list="boardPlanListDone" group="task" draggable=".done" class="card-body">
-						<div v-for="(doneItem, doneIndex) in boardPlanListDone" :key="doneIndex" class="card card-warning done" style="background: #f4f6f9">
+					<draggable :list="boardPlanListDone" group="task" @change="dragLog" draggable=".done" class="card-task">
+						<div v-for="(doneItem, doneIndex) in boardPlanListDone" :key="doneIndex" class="card card-success done" style="background: #f4f6f9">
 							<div class="card-body">
 								<h6>{{ doneItem.task }}</h6>
 								<p>{{ doneItem.location }}</p>
 							</div>
 						</div>
 					</draggable>
-				</div>
-				<div class="card-footer">
+					<p v-if="boardPlanListDone.length === 0" class="text-center">Daftar rencana yang telah selesai akan muncul disini</p>
 				</div>
 			</div>
 		</div>
