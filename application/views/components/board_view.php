@@ -10,7 +10,7 @@
 	<div class="col-12 col-md-6 col-lg-4" v-for="(boardItem, boardIndex) in boardList" :key="boardIndex">
 		<div class="card card-task">
 			<div class="card-body d-flex flex-row">
-				<div class="float-left d-flex flex-column mr-4">
+				<div style="cursor: pointer" class="float-left d-flex flex-column mr-4" @click="goToBoardDetail(boardItem.id)">
 					<h4 class="text-info">{{ textTruncate(boardItem.board, 18, '...') }}</h4>
 					<p>{{ getGoodTime(boardItem.created) }}</p>
 				</div>

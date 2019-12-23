@@ -11,4 +11,14 @@ class App extends CI_Controller {
 		);
 		$this->load->view('app_view', $data);
 	}
+
+	public function board() {
+		$boardId = $this->uri->segment(3);
+		if ($boardId == null || $boardId == '') {
+			$newURL = base_url().'app';
+			header('Location: '.$newURL);
+		} else {
+			$this->load->view('board_detail_app_view');
+		}
+	}
 }
