@@ -1,4 +1,4 @@
-<h2 class="section-title">Detail Board</h2>
+<h2 class="section-title">{{ boardName }}</h2>
 <p class="section-lead">
 	Kamu bisa menambah daftar rencana kunjungan di board ini
 </p>

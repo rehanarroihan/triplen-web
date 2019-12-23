@@ -27,7 +27,7 @@
   padding: 8px;
   width: 100%;
   cursor: pointer;
-}
+} 
 
 @media (min-width: 300px) and (max-width: 990px) {
   .empty-state {

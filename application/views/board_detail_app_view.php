@@ -76,7 +76,6 @@
           timePicker: true,
           timePicker24Hour: true,
         });
-        $('.selectpicker').selectpicker();
       });
       
       //use vuelidate
@@ -89,6 +88,7 @@
       	el: '#app',
       	data: {
           boardId: <?php echo $this->uri->segment(3) ?>,
+          boardName: '',
           boardPlanListUndone: [],
           boardPlanListDone: [],
           locationResult: [],
@@ -119,7 +119,8 @@
               }
             }).then((res) => {
               if (res.data.success) {
-                res.data.data.map((item, index) => {
+                self.boardName = res.data.data.board;
+                res.data.data.task.map((item, index) => {
                   if (item.status === 0) {
                     // goes to done
                     self.boardPlanListDone.push(item);
@@ -153,30 +154,30 @@
 
           planSubmit() {
       			const self = this;
+      			const token = self.authToken;
       			axios({
       				url: apiBaseURL + 'task',
       				method: 'post',
-      				data: self.newPlanData,
+              data: self.newPlanData,
       				headers: {
-      					Authorization: `Bearer ${self.authToken}`
+      					Authorization: `Bearer ${token}`
       				}
       			}).then((res) => {
       				if (res.data.success) {
-      					self.newPlanData = {
-      						id_board: null,
-      						task_name: '',
-      						task_date: '',
-      						task_location: ''
-      					};
-      					self.getBoardsData();
-      					$("[data-dismiss=modal]").trigger({
-      						type: "click"
-      					});
+                self.newPlanData = {
+                  id_board: <?php echo $this->uri->segment(3) ?>,
+                  task_name: '',
+                  task_date: '',
+                  task_location: '',
+                  task_long: '',
+                  task_lat: ''
+                };
+                $("[data-dismiss=modal]").trigger({type: "click"});
+      					self.getBoardDetail();
       				}
       			}).catch((err) => {
-      				console.log(err);
       				if (err.response.status === 400) {
-      					//window.location.href = appBaseURL;
+      					window.location.href = appBaseURL;
       				}
       			});
       		},
@@ -184,6 +185,17 @@
           dragLog(evt) {
             console.log(evt);
           },
+
+          selectLocation(locItem) {
+            this.newPlanData.task_location = locItem.name;
+            this.newPlanData.task_long = locItem.geometry.location.lng.toString();
+            this.newPlanData.task_lat = locItem.geometry.location.lat.toString();
+            this.locationResult = [];
+          },
+
+          removeLocation() {
+            this.newPlanData.task_location = '';
+          }
         },
       	created() {
       		const regDataString = localStorage.getItem('regData');
