@@ -35,7 +35,7 @@
               <h1>MyTriplen</h1>
               </div> -->
             <div class="section-body">
-              
+              <?php $this->load->view('components/board_detail_view') ?>
             </div>
           </section>
         </div>
@@ -67,20 +67,40 @@
     <script>
       //use vuelidate
       Vue.use(window.vuelidate.default);
-      const {
-      	required
-      } = window.validators;
+      const { required } = window.validators;
       
       const draggable = vuedraggable;
       
       var app = new Vue({
       	el: '#app',
-      	data: {},
+      	data: {
+          boardId: <?php echo $this->uri->segment(3) ?>,
+          boardDetail: {},
+        },
       	validations: {
       		
       	},
       	methods: {
+          getBoardDetail() {
+            const self = this;
+            axios({
+              url: apiBaseURL + 'boards/' + self.boardId,
+              method: 'get',
+              data: self.newBoardData,
+              headers: {
+                Authorization: `Bearer ${self.authToken}`
+              }
+            }).then((res) => {
+              if (res.data.success) {
+                self.boardDetail = res.data.data;
+              }
+            });
+          },
 
+          logout() {
+      			localStorage.clear();
+      			window.location.href = appBaseURL;
+      		}
         },
       	created() {
       		const regDataString = localStorage.getItem('regData');
@@ -93,8 +113,8 @@
       			window.location.href = appBaseURL;
       		}
       	},
-      	mounted: function() {
-      		
+      	mounted() {
+      		this.getBoardDetail();
       	}
       });
     </script>

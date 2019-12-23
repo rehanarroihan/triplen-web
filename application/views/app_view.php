@@ -40,7 +40,7 @@
                 <div class="message">
                   <h3>Kamu belum punya rencana liburan apapun!</h3>
                   <p>ayo mulai ciptakan rencana menakjubkanmu!</p>
-                  <button @click="openNewPlanModal(null)" class="btn btn-task btn-lg btn-icon icon-left button-create">
+                  <button data-toggle="modal" data-target="#newBoardModal" class="btn btn-task btn-lg btn-icon icon-left button-create">
                   <i class="fa fa-plus"></i>&emsp;Tambah Rencana Baru
                   </button>
                 </div>
@@ -175,7 +175,7 @@
       			}).then((res) => {
       				if (res.data.success) {
       					self.boardList = [...res.data.data];
-      					self.getBoardsDataAndPlans();
+      					//self.getBoardsDataAndPlans();
       				}
       			}).catch((err) => {
       				if (err.response.status === 400) {

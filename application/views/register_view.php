@@ -50,6 +50,7 @@
                       tabindex="1"
                       placeholder="Nomor Telepon"
                       v-model.trim="phone"
+                      v-on:keyup.enter="submit"
                       v-bind:class="{ 'is-invalid': !$v.phone.minLength || !$v.phone.required || !$v.phone.maxLength }"
                       autofocus>
                       <div class="invalid-feedback">

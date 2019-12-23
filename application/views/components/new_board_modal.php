@@ -16,7 +16,7 @@
             v-model="newBoardData.board_name"
             v-on:keyup.enter="newBoardSubmit"
             v-bind:class="{ 'is-invalid': !$v.newBoardData.board_name.required }"
-            placeholder="Jalan-jalan ke malioboro"
+            placeholder="Kunjungan ke Bali"
             autofocus>
           <div class="invalid-feedback">
             Nama board harus di isi
