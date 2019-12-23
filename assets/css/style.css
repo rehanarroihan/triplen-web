@@ -84,6 +84,7 @@
 }
 
 .card.card-task {
+  min-height: 160px;
 	border-top: 2px solid #0099e0;
 }
 

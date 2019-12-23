@@ -7,12 +7,12 @@
 </button>
 
 <div class="row">
-	<div class="col-12 col-md-6 col-lg-4 hellaw" v-for="(boardItem, boardIndex) in boardList" :key="boardIndex">
+	<div class="col-12 col-md-6 col-lg-4" v-for="(boardItem, boardIndex) in boardList" :key="boardIndex">
 		<div class="card card-task">
 			<div class="card-body d-flex flex-row">
 				<div class="float-left d-flex flex-column mr-4">
-					<h4 class="text-info">{{ boardItem.board }}</h4>
-					<p>{{ boardItem.created}}</p>
+					<h4 class="text-info">{{ textTruncate(boardItem.board, 18, '...') }}</h4>
+					<p>{{ getGoodTime(boardItem.created) }}</p>
 				</div>
 				<div class="float-right d-flex text-right">
 					<div class="flex-column pr-2">
