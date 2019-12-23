@@ -9,6 +9,8 @@
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css" integrity="sha256-Sv44mRstp+agwCWaPO4R+KKV+Az9Cu+qS5/hNRQlHT0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.min.css" integrity="sha256-VVbO1uqtov1mU6f9qu/q+MfDmrqTfoba0rAE07szS20=" crossorigin="anonymous" />
     <!-- Template CSS -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/back/assets/css/style.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/back/assets/css/components.css">
@@ -19,9 +21,8 @@
     <script src="https://unpkg.com/vuelidate/dist/vuelidate.min.js"></script>
     <script src="<?php echo base_url() ?>assets/js/constants.js"></script>
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/style.css">
-    <!-- CDNJS :: Sortable (https://cdnjs.com/) -->
+    <!-- vue draggable -->
     <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
-    <!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
   </head>
   <body class="layout-3">
@@ -59,6 +60,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.js" integrity="sha256-nTk/a8Kql0uKPMcUKZ7luVTLQzohljLoRxiP5U1oT7Q=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.min.js" integrity="sha256-zI6VVO07NPmVW11q3RQE42YbRmJIkkunrcQ9LEYxJsQ=" crossorigin="anonymous"></script>
     <script src="<?php echo base_url() ?>assets/back/assets/js/stisla.js"></script>
     <!-- JS Libraies -->
     <!-- Page Specific JS File -->
@@ -66,6 +69,16 @@
     <script src="<?php echo base_url() ?>assets/back/assets/js/scripts.js"></script>
     <script src="<?php echo base_url() ?>assets/back/assets/js/custom.js"></script>
     <script>
+      $(document).ready(function(){
+        $('.datetimepicker').daterangepicker({
+          locale: {format: 'YYYY-MM-DD hh:mm'},
+          singleDatePicker: true,
+          timePicker: true,
+          timePicker24Hour: true,
+        });
+        $('.selectpicker').selectpicker();
+      });
+      
       //use vuelidate
       Vue.use(window.vuelidate.default);
       const { required } = window.validators;

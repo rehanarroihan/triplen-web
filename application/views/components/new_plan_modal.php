@@ -25,7 +25,7 @@
         </div>
         <div class="form-group">
           <label>Tanggal</label>
-          <input @keyup.enter="planSubmit" type="email" class="form-control" v-model="newPlanData.task_date" name="email" placeholder="Masukkan rencana traveling mu">
+          <input @keyup.enter="planSubmit" class="form-control datetimepicker" v-model="newPlanData.task_date" placeholder="Masukkan rencana traveling mu">
         </div>
       </div>
       <div class="modal-footer bg-whitesmoke br">
