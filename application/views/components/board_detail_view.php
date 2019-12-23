@@ -19,7 +19,7 @@
 						<div v-for="(undoneItem, undoneIndex) in boardPlanListUndone" :key="undoneIndex" class="card card-warning undone" style="background: #f4f6f9">
 							<div class="card-body">
 								<h6>{{ undoneItem.task }}</h6>
-								<p>{{ undoneItem.location }}</p>
+								<p><i class="fa fa-map-marker"></i>&nbsp; {{ undoneItem.location }}</p>
 							</div>
 						</div>
 					</draggable>
@@ -45,7 +45,7 @@
 						<div v-for="(doneItem, doneIndex) in boardPlanListDone" :key="doneIndex" class="card card-success done" style="background: #f4f6f9">
 							<div class="card-body">
 								<h6>{{ doneItem.task }}</h6>
-								<p>{{ doneItem.location }}</p>
+								<p><i class="fa fa-map-marker"></i>&nbsp; {{ doneItem.location }}</p>
 							</div>
 						</div>
 					</draggable>
