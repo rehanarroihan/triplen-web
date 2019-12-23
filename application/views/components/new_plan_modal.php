@@ -21,7 +21,16 @@
         </div>
         <div class="form-group">
           <label>Lokasi</label>
-          <input type="text" @change="searchPlace" v-model="newPlanData.task_location" class="form-control" placeholder="Ketikkan nama lokasi">
+          <input type="text" @keyup.enter="searchPlace" v-model="newPlanData.task_location" class="form-control" placeholder="Ketikkan nama lokasi, tekan enter, lalu pilih salah satu">
+          <small v-if="isLocationLoading">Tunggu sebentar, sedang memuat</small>
+          <div v-if="!isLocationLoading && locationResult.length !== 0">
+            <div class="list-group" v-for="(locItem, locIndex) in locationResult" :key="locIndex">
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <p style="margin:0"><i class="fa fa-location-arrow" style="color:#6777ef"></i> <b>&nbsp;{{ locItem.name }}</b></p>
+                <small>{{ locItem.formatted_address }}</small>
+              </a>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label>Tanggal</label>

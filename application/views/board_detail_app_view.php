@@ -140,11 +140,15 @@
 
           searchPlace(e) {
       			const self = this;
+            isLocationLoading = true;
       			axios.get(`https://multazamgsd.com/maps/?q=${encodeURI(e.target.value)}`)
       				.then((result) => {
       					self.locationResult = result.data.candidates;
       					self.isLocationLoading = false;
-      				}).catch(err => console.log(err));
+      				}).catch(err => {
+                console.log(err);
+                self.isLocationLoading = false;
+              });
       		},
 
           planSubmit() {
