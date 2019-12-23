@@ -134,17 +134,34 @@
       				}).catch(err => console.log(err));
       		},
 
-          newPlanSubmit() {
+          planSubmit() {
       			const self = this;
-      			if (this.newPlanData.id_board === null) {
-      				// orang ini pertama kali bikin plan, jadi gapunya board, bikinin lahhh
-      				self.createInitializeBoard().then((output) => {
-      					self.newPlanData.id_board = output;
-      					self.planSubmit();
-      				});
-      			} else {
-      				self.planSubmit();
-      			}
+      			axios({
+      				url: apiBaseURL + 'task',
+      				method: 'post',
+      				data: self.newPlanData,
+      				headers: {
+      					Authorization: `Bearer ${self.authToken}`
+      				}
+      			}).then((res) => {
+      				if (res.data.success) {
+      					self.newPlanData = {
+      						id_board: null,
+      						task_name: '',
+      						task_date: '',
+      						task_location: ''
+      					};
+      					self.getBoardsData();
+      					$("[data-dismiss=modal]").trigger({
+      						type: "click"
+      					});
+      				}
+      			}).catch((err) => {
+      				console.log(err);
+      				if (err.response.status === 400) {
+      					//window.location.href = appBaseURL;
+      				}
+      			});
       		},
 
           dragLog(evt) {

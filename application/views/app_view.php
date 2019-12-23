@@ -61,8 +61,7 @@
             <!-- 2.3.0 -->
           </div>
         </footer>
-      </div>
-      <?php $this->load->view($new_plan_modal_view); ?>
+      </div>      
       <?php $this->load->view($new_board_modal_view); ?>
     </div>
     <!-- app -->
@@ -159,40 +158,6 @@
       				}
       			});
       		},
-      
-      		openNewPlanModal(board_id) {
-      			this.newPlanData.id_board = board_id;
-      			$("#newPlanModal").modal();
-      		},
-      
-      		createInitializeBoard() {
-      			const self = this;
-      			return new Promise((resolve, reject) => {
-      				const initialBoardForNewUser = [{
-      					board_name: 'My First Boards',
-      				}, ];
-      				let boardIdWillReturn;
-      				for (let i = 0; i < initialBoardForNewUser.length; i++) {
-      					axios({
-      						url: apiBaseURL + 'boards',
-      						method: 'post',
-      						data: initialBoardForNewUser[i],
-      						headers: {
-      							Authorization: `Bearer ${self.authToken}`
-      						}
-      					}).then((res) => {
-      						if (res.data.success) {
-      							if (i === 0) {
-      								boardIdWillReturn = res.data.data.id;
-      							}
-      							if (i === 1) {
-      								resolve(boardIdWillReturn);
-      							}
-      						}
-      					})
-      				}
-      			});
-      		},
 
           getGoodTime(badTime) {
             return moment(badTime, "YYYY-MM-DD hh-mm-ss").fromNow();
@@ -209,36 +174,6 @@
             }
             return textString;
           },
-      
-      		planSubmit() {
-      			const self = this;
-      			axios({
-      				url: apiBaseURL + 'task',
-      				method: 'post',
-      				data: self.newPlanData,
-      				headers: {
-      					Authorization: `Bearer ${self.authToken}`
-      				}
-      			}).then((res) => {
-      				if (res.data.success) {
-      					self.newPlanData = {
-      						id_board: null,
-      						task_name: '',
-      						task_date: '',
-      						task_location: ''
-      					};
-      					self.getBoardsData();
-      					$("[data-dismiss=modal]").trigger({
-      						type: "click"
-      					});
-      				}
-      			}).catch((err) => {
-      				console.log(err);
-      				if (err.response.status === 400) {
-      					//window.location.href = appBaseURL;
-      				}
-      			});
-      		},
       
       		newBoardSubmit() {
       			const self = this;

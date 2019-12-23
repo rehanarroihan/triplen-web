@@ -27,22 +27,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="collapse show" :id="boardItem.id">
-				<draggable v-model="iniData" draggable=".card" class="card-body">
-					<div v-for="(iniItem, iniIndex) in iniData" :key="iniIndex" class="card card-warning" style="background: #f4f6f9">
-						<div class="card-body">
-							<h6>{{ iniItem.title }}</h6>
-							<p>Babik lu pada</p>
-						</div>
-					</div>
-					<p v-for="(planItem, planIndex) in boardItem.plans" :key="planIndex">{{ planItem.task }}</p>
-				</draggable>
-				<div class="card-footer">
-					<button @click="openNewPlanModal(boardItem.id)" class="btn btn-block btn-outline-task">
-						<i class="fa fa-plus"></i> Tambah
-					</button>
-				</div>
-			</div> -->
 		</div>
 	</div>
 </div>

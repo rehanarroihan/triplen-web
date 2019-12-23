@@ -25,12 +25,12 @@
         </div>
         <div class="form-group">
           <label>Tanggal</label>
-          <input @keyup.enter="newPlanSubmit" type="email" class="form-control" v-model="newPlanData.task_date" name="email" placeholder="Masukkan rencana traveling mu">
+          <input @keyup.enter="planSubmit" type="email" class="form-control" v-model="newPlanData.task_date" name="email" placeholder="Masukkan rencana traveling mu">
         </div>
       </div>
       <div class="modal-footer bg-whitesmoke br">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-        <button type="button" @click="newPlanSubmit" class="btn btn-primary">Simpan</button>
+        <button type="button" @click="planSubmit" class="btn btn-primary">Simpan</button>
       </div>
     </div>
   </div>
